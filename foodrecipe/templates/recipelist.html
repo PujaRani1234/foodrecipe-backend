@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}All Recipes | FoodRecipe{% endblock %}
+
+{% block content %}
+<section class="page-panel hero-panel">
+  <div>
+    <h1>All Recipes</h1>
+    <p>Browse, edit, and manage your recipes in one place.</p>
+  </div>
+  <a class="button primary" href="{% url 'create_recipe' %}">Add recipe</a>
+</section>
+
+{% if recipes %}
+<section class="recipe-grid">
+  {% for recipe in recipes %}
+    <article class="recipe-card">
+      <div class="card-header">
+        <div>
+          <h2>{{ recipe.name }}</h2>
+          <p class="meta">Added {{ recipe.created_at|date:"M j, Y" }}</p>
+        </div>
+        <div class="card-actions">
+          <a class="button secondary" href="{% url 'update_recipe' recipe.id %}">Edit</a>
+          <a class="button danger" href="{% url 'delete_recipe' recipe.id %}">Delete</a>
+        </div>
+      </div>
+      <p class="card-description">{{ recipe.description|linebreaksbr }}</p>
+      <div class="card-section">
+        <strong>Ingredients</strong>
+        <p>{{ recipe.ingredients|linebreaksbr }}</p>
+      </div>
+      <div class="card-section">
+        <strong>Steps</strong>
+        <p>{{ recipe.steps|linebreaksbr }}</p>
+      </div>
+    </article>
+  {% endfor %}
+</section>
+{% else %}
+<section class="empty-state">
+  <div class="empty-box">
+    <h2>No recipes yet</h2>
+    <p>Start by adding your first recipe. It will appear here as a card with ingredients and instructions.</p>
+    <a class="button primary" href="{% url 'create_recipe' %}">Add recipe</a>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} | FoodRecipe{% endblock %}
+
+{% block content %}
+<section class="page-panel card-panel">
+  <div class="panel-heading">
+    <div>
+      <h1>{{ page_title }}</h1>
+      <p>Use this form to save or update a recipe.</p>
+    </div>
+    <a class="button secondary" href="{% url 'recipe_list' %}">Back to all recipes</a>
+  </div>
+
+  <form method="post" class="recipe-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.name.id_for_label }}">Recipe Name</label>
+      {{ form.name }}
+      {% if form.name.errors %}
+        <div class="error">{{ form.name.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.description.id_for_label }}">Description</label>
+      {{ form.description }}
+      {% if form.description.errors %}
+        <div class="error">{{ form.description.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.ingredients.id_for_label }}">Ingredients</label>
+      {{ form.ingredients }}
+      {% if form.ingredients.errors %}
+        <div class="error">{{ form.ingredients.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.steps.id_for_label }}">Steps</label>
+      {{ form.steps }}
+      {% if form.steps.errors %}
+        <div class="error">{{ form.steps.errors }}</div>
+      {% endif %}
+    </div>
+    <button type="submit" class="button primary">{{ submit_label }}</button>
+  </form>
+</section>
+{% endblock %}
